@@ -1,4 +1,4 @@
-[![Python application](https://github.com/jonathan-gartland/data_validation_test/actions/workflows/python-app.yml/badge.svg)](https://github.com/jonathan-gartland/data_validation_test/actions/workflows/python-app.yml)  
+[![Pytest Snowflake Loading](https://github.com/jonathan-gartland/data_validation_test/actions/workflows/python-app.yml/badge.svg)](https://github.com/jonathan-gartland/data_validation_test/actions/workflows/python-app.yml)  
   
 
 # data_validation_test
