@@ -16,17 +16,6 @@ def pg_conn():
     pg_password = os.getenv('PG_PASSWORD')
     pg_db = os.getenv('PG_DB')
 
-    # Print environment variables to verify they are set correctly
-    print(f"PG_SSH_HOST: {ssh_host}")
-    print(f"PG_SSH_PORT: {ssh_port}")
-    print(f"PG_SSH_USER: {ssh_user}")
-    print(f"PG_SSH_PASSWORD: {ssh_password}")
-    print(f"PG_HOST: {pg_host}")
-    print(f"PG_PORT: {pg_port}")
-    print(f"PG_USER: {pg_user}")
-    print(f"PG_PASSWORD: {pg_password}")
-    print(f"PG_DB: {pg_db}")
-
     with PostgresConnection(ssh_host, ssh_port, ssh_user, ssh_password, pg_host, pg_port, pg_user, pg_password, pg_db) as conn:
         yield conn
 
