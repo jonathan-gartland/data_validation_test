@@ -1,0 +1,39 @@
+name: Run Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+
+      - name: Run tests
+        env:
+          PG_SSH_HOST: ${{ secrets.PG_SSH_HOST }}
+          PG_SSH_PORT: ${{ secrets.PG_SSH_PORT }}
+          PG_SSH_USER: ${{ secrets.PG_SSH_USER }}
+          PG_SSH_PASSWORD: ${{ secrets.PG_SSH_PASSWORD }}
+          PG_HOST: ${{ secrets.PG_HOST }}
+          PG_PORT: ${{ secrets.PG_PORT }}
+          PG_USER: ${{ secrets.PG_USER }}
+          PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+          PG_DB: ${{ secrets.PG_DB }}
+          SF_USER: ${{ secrets.SF_USER }}
+          SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
+          SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
+        run: pytest
+
+  export PG_SSH_HOST=your_pg_ssh_host && export PG_SSH_PORT=your_pg_ssh_port && export PG_SSH_USER=your_pg_ssh_user && export PG_SSH_PASSWORD=your_pg_ssh_password && export PG_HOST=your_pg_host && export PG_PORT=your_pg_port && export PG_USER=your_pg_user && export PG_PASSWORD=your_pg_password && export PG_DB=your_pg_db
