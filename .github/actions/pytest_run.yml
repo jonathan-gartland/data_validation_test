@@ -35,5 +35,3 @@ jobs:
           SF_PASSWORD: ${{ secrets.SF_PASSWORD }}
           SF_ACCOUNT: ${{ secrets.SF_ACCOUNT }}
         run: pytest
-
-  export PG_SSH_HOST=your_pg_ssh_host && export PG_SSH_PORT=your_pg_ssh_port && export PG_SSH_USER=your_pg_ssh_user && export PG_SSH_PASSWORD=your_pg_ssh_password && export PG_HOST=your_pg_host && export PG_PORT=your_pg_port && export PG_USER=your_pg_user && export PG_PASSWORD=your_pg_password && export PG_DB=your_pg_db
