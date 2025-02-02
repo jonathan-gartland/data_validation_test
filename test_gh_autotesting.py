@@ -62,7 +62,7 @@ def test_table_row_count(pg_conn, sf_conn, table_name):
     pg_rowcount = pg_cursor.fetchone()[0]
 
     sf_cursor = sf_conn.cursor()
-    sf_cursor.execute(f"SELECT COUNT(*) AS rowcount FROM dvdrental.PUBLIC.{table_name}")
+    sf_cursor.execute(f'SELECT COUNT(*) AS rowcount FROM dvdrental.PUBLIC.{table_name}')
     sf_rowcount = sf_cursor.fetchone()[0]
 
     print(f"PostgreSQL {table_name} table row count: {pg_rowcount}")
