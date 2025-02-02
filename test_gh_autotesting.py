@@ -55,16 +55,17 @@ def test_row_counts(pg_conn, sf_conn, capfd):
 
     assert pg_rowcount == sf_rowcount, f"Row counts do not match: PostgreSQL ({pg_rowcount}) vs Snowflake ({sf_rowcount})"
 
-def test_actor_table_row_count(pg_conn, sf_conn, capfd):
+@pytest.mark.parametrize("table_name", ["actor", "film", "customer", "payment", "rental"])
+def test_table_row_count(pg_conn, sf_conn, table_name):
     pg_cursor = pg_conn.cursor()
-    pg_cursor.execute("SELECT COUNT(*) FROM public.actor")
+    pg_cursor.execute(f"SELECT COUNT(*) FROM public.{table_name}")
     pg_rowcount = pg_cursor.fetchone()[0]
 
     sf_cursor = sf_conn.cursor()
-    sf_cursor.execute("SELECT COUNT(*) AS rowcount FROM dvdrental.PUBLIC.actor")
+    sf_cursor.execute(f'SELECT COUNT(*) AS rowcount FROM dvdrental.PUBLIC.{table_name}')
     sf_rowcount = sf_cursor.fetchone()[0]
-    print(f"Snowflake actor table row count: {sf_rowcount}")
 
-    # assert pg_rowcount == 202, f"PostgreSQL actor table row count is incorrect: {pg_rowcount}"
-    # assert sf_rowcount == 202, f"Snowflake actor table row count is incorrect: {sf_rowcount}"
-    assert pg_rowcount == sf_rowcount, f"Row counts do not match: PostgreSQL ({pg_rowcount}) vs Snowflake ({sf_rowcount})"
+    print(f"PostgreSQL {table_name} table row count: {pg_rowcount}")
+    print(f"Snowflake {table_name} table row count: {sf_rowcount}")
+
+    assert pg_rowcount == sf_rowcount, f"Row counts do not match for table {table_name}: PostgreSQL ({pg_rowcount}) vs Snowflake ({sf_rowcount})"
