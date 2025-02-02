@@ -54,3 +54,17 @@ def test_row_counts(pg_conn, sf_conn, capfd):
     sf_rowcount = sf_cursor.fetchone()[0]
 
     assert pg_rowcount == sf_rowcount, f"Row counts do not match: PostgreSQL ({pg_rowcount}) vs Snowflake ({sf_rowcount})"
+
+def test_actor_table_row_count(pg_conn, sf_conn, capfd):
+    pg_cursor = pg_conn.cursor()
+    pg_cursor.execute("SELECT COUNT(*) FROM public.actor")
+    pg_rowcount = pg_cursor.fetchone()[0]
+
+    sf_cursor = sf_conn.cursor()
+    sf_cursor.execute("SELECT COUNT(*) AS rowcount FROM dvdrental.PUBLIC.actor")
+    sf_rowcount = sf_cursor.fetchone()[0]
+    print(f"Snowflake actor table row count: {sf_rowcount}")
+
+    # assert pg_rowcount == 202, f"PostgreSQL actor table row count is incorrect: {pg_rowcount}"
+    # assert sf_rowcount == 202, f"Snowflake actor table row count is incorrect: {sf_rowcount}"
+    assert pg_rowcount == sf_rowcount, f"Row counts do not match: PostgreSQL ({pg_rowcount}) vs Snowflake ({sf_rowcount})"
